@@ -12,7 +12,6 @@ import 'react-dates/lib/css/_datepicker.css'
 
 const store = configureStore();
 
-
 // store.dispatch(setTextFilter('rent'))
 
 // setTimeout(()=> {
