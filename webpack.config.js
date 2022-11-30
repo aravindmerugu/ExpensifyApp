@@ -43,7 +43,11 @@ module.exports = (env, argv) => {
         devServer: {
             static: {
                 directory: path.join(__dirname, 'public'),
-              },          
+              },
+              devMiddleware: {
+                index: true,
+                publicPath: '/dist/',
+              },    
             compress: true,
             historyApiFallback:true,
           },
