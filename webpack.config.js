@@ -70,5 +70,8 @@ module.exports = (env, argv) => {
             compress: true,
             historyApiFallback:true,
           },
+          resolve: {
+            extensions: ['.ts', '.js'],
+          }
     }
 }
