@@ -78,7 +78,7 @@
     "webpack-dev-server": "^4.11.1"
   },
   "engines": {
-    "node": "^16.17.0",
+    "node": "^16.4.0",
     "npm": "^8.15.0"
   },
   "browser": {
