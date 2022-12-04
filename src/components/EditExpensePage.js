@@ -49,7 +49,7 @@ const mapDispatchToProps = (dispatch, props) => {
     dispatch(editExpense(id, expense))
     navigate('/')
   },
-  removeExpense: (data) => dispatch(removeExpense(data))
+  removeExpense: (data) => dispatch(removeExpense(data),navigate('/'))
 }
 }
 

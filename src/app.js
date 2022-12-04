@@ -8,7 +8,8 @@ import ROUTES from './routers/AppRouter';
 import { addExpense } from './actions/expenses';
 import getVisibleExpenses from './selectors/expenses';
 import { setTextFilter } from './actions/filters';
-import 'react-dates/lib/css/_datepicker.css'
+import 'react-dates/lib/css/_datepicker.css';
+import firebase from './firebase/firebase';
 
 const store = configureStore();
 
