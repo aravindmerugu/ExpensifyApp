@@ -1,10 +1,11 @@
 const expenseReducerDefaultState = []
 
 const expenseReducer = (state = expenseReducerDefaultState, action) => {
-    switch (action.type) { 
+    switch (action.type) {
         case 'ADD_EXPENSE':
             return [
-                state,
+                ...state,
+                action.expense
             ]
         case 'REMOVE_EXPENSE':
             return state.filter(({id}) => id !== action.id)
@@ -19,8 +20,6 @@ const expenseReducer = (state = expenseReducerDefaultState, action) => {
                     return expense
                 }
             })
-        case 'SET_EXPENSES':
-            return action.expenses
         default:
             return state;
     }
