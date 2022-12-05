@@ -2,19 +2,20 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { removeExpense } from '../actions/expenses';
 import ExpenseForm from './ExpenseForm';
-import { editExpense } from '../actions/expenses';
+import { startEditExpense } from '../actions/expenses';
+import { startRemoveExpense } from '../actions/expenses';
 import { useNavigate } from 'react-router-dom';
 
 export class EditExpensePage extends React.Component {
   onSubmit = (expense) => {
     return (
-      this.props.editExpense(this.props.expense.id, expense)
+      this.props.startEditExpense(this.props.expense.id, expense)
     )
   }
 
   onRemove = () => {
     return(
-    this.props.removeExpense({id: this.props.expense.id})
+    this.props.startRemoveExpense({id: this.props.expense.id})
     )
   }
 
@@ -45,11 +46,14 @@ const mapStateToProps = (state, props) => {
 const mapDispatchToProps = (dispatch, props) => {
   const navigate = useNavigate()
   return {
-  editExpense: (id, expense) => {
-    dispatch(editExpense(id, expense))
+    startEditExpense: (id, expense) => {
+    dispatch(startEditExpense(id, expense))
     navigate('/')
   },
-  removeExpense: (data) => dispatch(removeExpense(data),navigate('/'))
+  startRemoveExpense: (data) => {
+    dispatch(startRemoveExpense(data))
+    navigate('/')
+  }
 }
 }
 
