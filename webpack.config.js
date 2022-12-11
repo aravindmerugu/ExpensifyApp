@@ -20,6 +20,7 @@ module.exports = (env, argv) => {
             path: path.join(__dirname, 'public', 'dist'),
             filename: 'bundle.js'
         },
+        target: ['web', 'es5'],
         module: {
             rules: [{
                 loader: 'babel-loader',
@@ -32,13 +33,14 @@ module.exports = (env, argv) => {
                     {
                         loader: 'css-loader',
                         options: {
-                            sourceMap: true
+                            sourceMap: true,
+                            url: false
                         }
                     },
                     {
                         loader: 'sass-loader',
                         options: {
-                            sourceMap: true
+                            sourceMap: true,
                         }
                     }
                 ]

@@ -1,6 +1,7 @@
 import {v1 as uuid} from 'uuid'
 import {database, db} from '../firebase/firebase'
-
+import { auth } from '../firebase/firebase'
+import { connect } from 'react-redux'
 
 const pushRef = database.ref(db,'expenses')
 
@@ -10,7 +11,9 @@ export const addExpense = (expense) => ({
 })
 
 export const startAddExpense = (expenseData = {}) => {
-    return (dispatch) => {
+    return (dispatch, getState) => {
+        // console.log(auth.currentUser)
+        const userid = auth.currentUser.uid
         const {
         description = '',
         note = '',
@@ -18,8 +21,7 @@ export const startAddExpense = (expenseData = {}) => {
         createdAt = 0
         } = expenseData
         const expense = { description, note, amount, createdAt }
-
-        const pushRef = database.ref(db,'expenses')
+        const pushRef = database.ref(db,`users/${userid}/expenses`)
 
         database.push(pushRef,expense).then((pushRef)=> {
             dispatch(addExpense({
@@ -37,8 +39,9 @@ export const removeExpense = ({id} = {}) => ({
 })
 
 export const startRemoveExpense = ({id}) => {
-    return (dispatch) => {
-        const removedData = database.ref(db,`expenses/${id}`)
+    return (dispatch, getState) => {
+        console.log(getState())
+        const removedData = database.ref(db,`users/${getState().auth.userid}/expenses/${id}`)
         return database.remove(removedData).then(()=>{
             // console.log(removedData)
             dispatch(removeExpense({id}))
@@ -56,8 +59,9 @@ export const editExpense = (id, updates) => (
 )
 
 export const startEditExpense = (id, updates) => {
-    return (dispatch) => {
-        const editDataDB = database.ref(db,`expenses/${id}`)
+    return (dispatch, getState) => {
+        // console.log(getState())
+        const editDataDB = database.ref(db,`users/${getState().auth.userid}/expenses/${id}`)
         return database.update(editDataDB,updates).then(()=>{
             // console.log(editDataDB)
             dispatch(editExpense(id, updates))
@@ -73,8 +77,13 @@ export const setExpenses = (expenses) => ({
 })
 
 export const startSetExpenses = () => {
-    return (dispatch) => {
-       return database.onValue(pushRef, (snapshot) => {
+    return (dispatch, getState) => {
+        // let uid = auth.currentUser.uid
+        // console.log(getState)
+        const pushRef = database.ref(db,`users/${getState().auth.userid}/expenses`)
+       return database.onValue(pushRef, 
+        (snapshot) => {
+        console.log(pushRef)
             const expenses = []
             snapshot.forEach((childSnapshot) => {
                 expenses.push({

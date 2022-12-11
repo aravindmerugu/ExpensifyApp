@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import ExpenseForm from './ExpenseForm';
 import { startAddExpense } from '../actions/expenses';
 import { useNavigate } from 'react-router-dom';
+import HeaderPage from './HeaderPage';
 
 export class AddExpensePage extends React.Component {
   
@@ -13,10 +14,17 @@ export class AddExpensePage extends React.Component {
   render() {
     return (
       <div>
-      <h1>Add Expense</h1>
+      <HeaderPage/>
+        <div className='page-header'>
+          <div className='content-container'>
+          <h1 className='page-header__title'>Add Expense</h1>
+          </div>
+        </div>
+      <div className='content-container'>
       <ExpenseForm
       onSubmit={this.onSubmit}
-      /> 
+      />
+      </div> 
       </div>
     )
   }

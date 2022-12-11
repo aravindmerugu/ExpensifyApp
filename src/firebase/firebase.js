@@ -1,9 +1,10 @@
 import firebase from "firebase/compat/app";
+import { initializeApp } from "firebase/app";
 import "firebase/compat/auth";
 import "firebase/compat/firestore";
 import "firebase/compat/storage";
-import { initializeApp } from "firebase/app";
 import * as database from "firebase/database";
+import { getAuth, GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth";
 
 const firebaseConfig = {
     apiKey: process.env.FIREBASE_API_KEY,
@@ -18,7 +19,11 @@ const firebaseConfig = {
 
   const app = initializeApp(firebaseConfig);
   const db = database.getDatabase(app);
-  export {firebase as default,db, database}
+  const auth = getAuth(app)
+  const googleAuthProvider = new GoogleAuthProvider();
+
+
+  export {firebase as default,googleAuthProvider,db, database,signInWithPopup,auth, signOut}
 
   // const expRef = ref(db,'expenses')
   // onValue(expRef, (snapshot) => {

@@ -5,6 +5,7 @@ import ExpenseForm from './ExpenseForm';
 import { startEditExpense } from '../actions/expenses';
 import { startRemoveExpense } from '../actions/expenses';
 import { useNavigate } from 'react-router-dom';
+import HeaderPage from './HeaderPage';
 
 export class EditExpensePage extends React.Component {
   onSubmit = (expense) => {
@@ -22,12 +23,20 @@ export class EditExpensePage extends React.Component {
   render() {
     return (
       <div>
+        <HeaderPage />
+        <div className='page-header'>
+          <div className='content-container'>
+            <h1 className='page-header__title'>Edit Expense</h1>
+          </div>
+        </div>
+      <div className='content-container'>
       <ExpenseForm
       expense={this.props.expense}
       onSubmit = {this.onSubmit}
-      />
-        <button 
-        onClick={this.onRemove}>Remove</button>
+          />
+          <button className='button button__secondary'
+            onClick={this.onRemove}>Remove Expense</button>
+        </div>
       </div>
     )
   }
